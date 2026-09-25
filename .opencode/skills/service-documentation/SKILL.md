@@ -7,6 +7,12 @@ description: Use when drafting, reviewing, translating, or updating PRDs, Featur
 
 This is the executable skill entry point. `SKILL.zh-TW.md` is its Traditional Chinese companion; keep both aligned when changing these rules. Product documents must be delivered in Traditional Chinese and English.
 
+## Required repository references
+
+Before authoring, read the shared rules in [authoring workflow](../../../docs/governance/authoring-workflow.en.md), [reference policy](../../../docs/governance/reference-policy.en.md), and [glossary](../../../docs/governance/glossary.en.md). These own the detailed conventions; this skill orchestrates their application. Change shared rules in their bilingual owning documents rather than maintaining duplicate definitions here.
+
+Use the [repository index](../../../README.en.md) and the relevant [internal](../../../docs/internal/README.en.md) or [external](../../../docs/external/README.en.md) index to locate documents. The requester confirmed one overall PRD, the existing audience/purpose folder structure, bilingual lightweight skeletons, and no operational documentation. Preserve these choices; leave all four Pipeline directories blank except for `.gitkeep`.
+
 ## 1. Purpose and audience
 
 This repository holds documentation for a company-internal OLAP Service based on Apache Doris and a Data Ingestion Pipeline.
@@ -16,17 +22,7 @@ This repository holds documentation for a company-internal OLAP Service based on
 - There is no existing mandatory company template or review process. Use the lightweight workflow below.
 - The requester is currently the sole final reviewer and decision maker. Do not invent additional approval roles.
 
-| Document | Responsibility |
-| --- | --- |
-| PRD | Problem, users, goals, scope, non-goals, success criteria, and requirements. |
-| Feature Spec | Detailed behavior, rules, states, exceptions, and acceptance criteria. |
-| RFC | Decision to be made, options, trade-offs, recommendation, and eventual decision. |
-| System Architecture | Components, interfaces, dependencies, and responsibility boundaries. |
-| Data Flow | Sources, destinations, transformations, and relevant delivery, failure, and recovery behavior. |
-| External Service Spec | Consumer-visible capabilities, supported scope, quotas, limits, and approved service commitments. |
-| External procedures and guides | Service application, approval, onboarding, usage, troubleshooting, and usage policies. |
-
-Use these responsibilities to decide where a fact belongs. Link to its owning document rather than copying extensive definitions. A draft must not silently override an approved document; surface conflicts to the requester.
+Use the responsibility table in the authoring workflow to locate each fact's owning document. Link rather than copying extensive definitions. Surface conflicts instead of silently overriding an approved decision.
 
 ## 2. Agreed project baseline
 
@@ -44,77 +40,23 @@ Preserve unresolved decisions, including Doris version selection and the monitor
 
 ## 3. Evidence and decision state
 
-Distinguish these states wherever their difference affects interpretation. Prefer section-level labels or compact tables to tagging every sentence.
-
-| State | Meaning |
-| --- | --- |
-| Confirmed current state | Supported by implementation, configuration, observations, tests, or explicit requester confirmation of actual operation. Identify the basis. |
-| Approved specification | Decided, but implementation or rollout may still be pending. |
-| Proposal | A suggested option awaiting a decision. |
-| Assumption | A temporary premise requiring validation. |
-| Open question | Missing information or an unresolved decision. |
-
-Document lifecycle and implementation state are separate: an approved design is not automatically an available service. Preserve the Pipeline baseline exception as described above without upgrading it to verified production operation.
-
-- Never fill gaps with invented SLAs/SLOs, quotas, retention periods, limits, API behavior, support windows, architecture choices, or delivery dates.
-- Offer useful proposals with reasons; label them as proposals. Keep numerical examples and placeholders distinct from requirements.
-- Record consequential decisions with an identifier, decision, reviewer, date when known, and rationale or source. Do not fabricate historical dates or approval records.
-- When inputs conflict, identify the conflicting claims and their states. Ask the requester to resolve service or design decisions; use applicable technical evidence to investigate factual behavior.
+Apply the content-state definitions and lifecycle rules in the authoring workflow. Distinguish confirmed current state, approved specification, proposal, assumption, and open question with section-level labels or compact tables when interpretation depends on them. Do not turn requester-confirmed direction into verified operation, fabricate missing rules, or treat skeleton creation as specification approval.
 
 ## 4. External-reference credibility
 
-Assign tiers to the evidence supporting each important claim, not merely to a website or organization.
-
-| Tier | Examples | Allowed use |
-| --- | --- | --- |
-| T1 — Authoritative primary evidence | Applicable-version official docs, release notes, source code, and formal standards. | Primary support for technical behavior and limits, subject to version, configuration, and evidence scope. |
-| T2 — Traceable first-hand explanation | Maintainer issue/PR discussions, design proposals, engineering reports with environment and method. | Design analysis and contextual evidence. An open proposal or individual report does not establish a supported feature. |
-| T3 — Corroborated secondary material | Third-party articles or tutorials with citations, versions, and reproducible methods. | Explanation and discovery; corroborate consequential claims with applicable T1 evidence or relevant first-hand validation. |
-| T4 — Unverified information | Unsourced claims, unsupported forum answers, and AI-generated summaries. | Search or validation leads only; never the sole basis for a specification. |
-
-- Authority, applicability, and verification are separate. Evaluate version, date, configuration, workload, deployment model, and whether the source describes a proposal or released behavior.
-- Official authorship alone does not make marketing claims or benchmarks universal guarantees. A source-code observation is not necessarily a supported public contract.
-- Do not assume `/latest/` documentation describes either Doris candidate. Check versioned references before making version-specific claims. If unavailable, mark the claim unverified and identify the needed check.
-- For important technical claims, keep a nearby reference ID and a source record: title, URL or repository path, tier for external sources, version/revision and publication date if known, access date, supported claim, applicable conditions, and local-validation status. Use `unknown` or `not verified` when appropriate.
-- Internal approved decisions and requester statements are decision authority, not external credibility tiers. Reference their origin separately; do not label them T1 by default.
-- No source allowlist or denylist has been specified. Prefer applicable primary evidence and use lower tiers according to the table.
-- If sources disagree, retain the conflict and explain differences in version or scope when supported. Do not resolve it by averaging claims or silently selecting the convenient one.
-- If a source cannot be accessed, say so. Do not fabricate a citation, quotation, verification result, or access date.
-- Apache Doris capabilities do not automatically become capabilities or guarantees of this managed service. Confirm service scope and implementation status separately.
+Follow the reference policy's T1–T4 definitions, permitted uses, applicability checks, conflict handling, and citation records. Classify evidence per important claim; distinguish internal decision authority from external evidence and upstream capabilities from this service's offering. Do not claim to have accessed or verified unavailable sources.
 
 ## 5. Hybrid authoring workflow
 
-1. **Inspect inputs.** Read repository instructions, relevant existing documents, and supplied decisions. Identify audience, document type, scope, and dependencies. Preserve existing user work.
-2. **Ask consequential questions first.** Clarify missing information that materially changes service commitments, architecture, access boundaries, data semantics, or acceptance criteria. Group related questions. Do not require answers to every minor detail before drafting.
-3. **Draft around non-blocking gaps.** Structure the document from known inputs; mark proposals, assumptions, and open questions explicitly. Each important open question should state what decision is needed and what it affects.
-4. **Check evidence.** Verify consequential external claims using the tier rules. Trace product requirements to requester decisions or approved specifications. Distinguish upstream capability from this service's offering.
-5. **Produce the bilingual pair.** Use Traditional Chinese with English technical terms and a complete English counterpart. Review both for semantic parity.
-6. **Review and decide.** Present material changes, unresolved decisions, evidence gaps, and affected documents to the requester. Only the requester can approve. Generating a polished draft or translation does not constitute approval.
-7. **Finalize or publish as directed.** Apply accepted decisions and synchronize affected documents and languages. Do not label a draft approved/published or perform a release without the corresponding requester decision.
-
-For a new topic, establish purpose and service boundaries before detailed design. Create only the document types useful for the current task; do not automatically generate every type in the table.
+Execute the hybrid workflow in the shared authoring document: inspect inputs, ask consequential questions, draft around non-blocking gaps, check evidence, produce both languages, request review/decisions, and finalize or publish only as directed. Use the current skeleton's open questions as a starting point rather than asking again about settled context. Preserve existing edits and keep Pipeline dependencies as targeted questions.
 
 ## 6. Bilingual and structural conventions
 
-- Default product-document naming: `<topic>.zh-TW.md` and `<topic>.en.md` in the same directory. Preserve an established repository layout if one is introduced; avoid unsolicited bulk renames or translations of unrelated legacy files.
-- Both languages have equal semantic standing. Draft in the working language of the discussion, then produce the other version. Resolve ambiguity with the requester rather than assuming one language overrides the other.
-- Give paired documents the same stable document ID and revision, equivalent status, and links to each other. Localized headings may differ; requirement, decision, and reference IDs must match when used.
-- Keep requirements, obligations, numerical values, units, examples, limitations, evidence states, references, and open questions equivalent. Translate normative force accurately (`must`, `should`, `may`). Never strengthen a commitment during translation.
-- Use Traditional Chinese prose with English technical terms. Define unfamiliar abbreviations at first use; keep service/component names and identifiers consistent. Maintain a shared glossary when terminology ambiguity or reuse warrants it.
-- Minimum document metadata: document ID, type, audience, lifecycle status, revision or last-updated date, reviewer, applicable service/version (including unresolved selection), and counterpart link. Add an owner only if known; do not invent people or dates.
-- Suggested lifecycle: `Draft → In Review → Approved → Published` where publication is applicable; use `Superseded` for replaced documents. Treat this as a lightweight default, not a requirement for extra company approval roles.
-- Use the relevant sections from the document responsibility table, followed as needed by decisions, open questions, references, and related documents. Avoid empty boilerplate sections; state `not applicable` only when useful.
-- A bilingual change is ready for approval only when both versions agree. If one cannot be completed, report the pair as incomplete rather than claiming synchronized completion.
-- The skill itself is a filename exception: OpenCode requires `SKILL.md`. Its Chinese companion is `SKILL.zh-TW.md`.
+Use the authoring workflow's YAML metadata and bilingual conventions with the established `.zh-TW.md` / `.en.md` pairs. Follow the glossary, keep stable IDs and normative force aligned, and update the relevant indexes when adding or moving documents. Both languages have equal semantic standing. The skill retains its required `SKILL.md` entry point and `SKILL.zh-TW.md` companion.
 
 ## 7. External-facing content and observability
 
-- External documentation describes capabilities and commitments confirmed as available for the intended audience. Approved but unreleased design may be documented as explicitly planned or preview material when requested, with its status clearly visible.
-- Derive consumer documentation from approved internal specifications while checking rollout status. Explain application and approval procedures only to the extent decided; do not invent approvers, turnaround times, or approval guarantees.
-- For external monitoring/logging documentation, clarify relevant identity/access scope, visible information, masked/withheld information, investigation workflow, and any decided retention/query limits. Keep unresolved policies as internal open questions until decided.
-- External examples, screenshots, diagrams, and sample logs must follow the agreed visibility rules. Do not infer that the internal view is safe to expose; use clearly labeled illustrative placeholders while those rules are unresolved.
-- Distinguish monitoring views, log investigation, metrics access, and alerting ownership. Future user-managed alerts do not imply service-managed alert delivery.
-- Keep internal infrastructure details and operational procedures in their owning internal documents unless explicitly approved and needed for consumers. External sources cannot decide internal exposure policy.
+Apply the authoring workflow's external-content rules. Current external skeletons are unpublished authoring artifacts, with author-facing questions clearly labeled; resolve relevant gaps before publication. Decide access and masking in internal Feature Specs, then derive external capabilities, limitations, and examples from approved scope and availability. Keep prospective consumer metrics access in the PRD's future direction until decided.
 
 ## 8. Completion check
 
